@@ -11,12 +11,9 @@ mod resolve_masks;
 
 /// ## `#[bitmask]`
 ///
-/// Declares a *bitmask definition* using an `enum` as a **compile-time DSL** and
+/// Declares a *bitmask definition* using an `enum` and
 /// generates a corresponding transparent *bits type* for runtime use.
-///
-/// This macro is intentionally **low-level**. It does **not** attempt to model
-/// permissions, states, or invariants. It only provides:
-///
+
 /// - Explicit bit values
 /// - Compile-time composition of bits
 /// - A thin, transparent wrapper around the raw integer
@@ -46,10 +43,6 @@ mod resolve_masks;
 ///    - enum variants
 ///    - the generated bits type
 ///    - the raw integer representation
-///
-/// The original enum is preserved and usable, but it should be understood as
-/// **a named source of bit patterns**, not a closed set of states.
-///
 ///
 /// ### Representation
 ///
@@ -113,7 +106,6 @@ mod resolve_masks;
 ///
 /// Cyclic definitions are rejected with a compile-time error.
 ///
-///
 /// ### `enable_auto_assign`
 ///
 /// When enabled, variants without explicit values or `#[compound]` are assigned
@@ -173,8 +165,6 @@ mod resolve_masks;
 /// - `repr_type → PermissionsBits`
 /// - `Permissions → repr_type`
 ///
-/// All conversions are lossless and unchecked.
-///
 /// ### Debug Formatting
 ///
 /// `PermissionsBits` implements `Debug` by attempting to decompose the stored
@@ -190,15 +180,6 @@ mod resolve_masks;
 ///
 /// - `0` is printed as `0x0`
 /// - Unknown bits are printed in hexadecimal
-///
-/// ### Important Semantics
-///
-/// - This macro does **not** enforce exclusivity
-/// - Multiple variants may overlap
-/// - Not all bit patterns correspond to enum variants
-/// - Pattern matching on the enum does **not** imply exhaustiveness
-///
-/// The enum is best understood as a *named bit catalog*, not a state machine.
 #[proc_macro_attribute]
 pub fn bitmask(attr: TokenStream, item: TokenStream) -> TokenStream {
     let mut input = parse_macro_input!(item as ItemEnum);
