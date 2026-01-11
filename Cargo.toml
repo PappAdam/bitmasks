@@ -1,0 +1,19 @@
+[package]
+name = "enum-bitmasks"
+version = "0.1.0"
+edition = "2024"
+authors = ["Papp Adam <p.adam555@proton.me>"]
+description = "A no_std compatible bitmask macro that can be implemented on enums."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/username/my_cool_bitflags"
+readme = "README.md"
+keywords = ["bitflags", "enum", "flags", "no_std", "macro"]
+categories = ["data-structures", "no-std", "embedded"]
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = { version = "2", features = ["full", "extra-traits"] }
+quote = "1"
+proc-macro2 = "1"
